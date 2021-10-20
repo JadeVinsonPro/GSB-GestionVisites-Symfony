@@ -27,7 +27,7 @@ class Visiteur implements UserInterface
     private $login;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="json", options={"default": "{}"})
      */
     private $roles = [];
 

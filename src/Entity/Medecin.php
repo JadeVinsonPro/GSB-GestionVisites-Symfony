@@ -49,6 +49,11 @@ class Medecin
      */
     private $rapports;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
@@ -145,6 +150,18 @@ class Medecin
                 $rapport->setMedecin(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
 
         return $this;
     }
