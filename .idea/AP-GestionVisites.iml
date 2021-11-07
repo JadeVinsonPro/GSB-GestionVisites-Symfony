@@ -135,8 +135,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/link" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/theofidry/psysh-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/psy/psysh" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

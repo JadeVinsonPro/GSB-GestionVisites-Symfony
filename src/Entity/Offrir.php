@@ -19,7 +19,7 @@ class Offrir
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="offrirs")
+     * @ORM\ManyToOne(targetEntity=Rapport::class, inversedBy="quantite")
      * @ORM\JoinColumn(nullable=false)
      */
     private $rapport;
