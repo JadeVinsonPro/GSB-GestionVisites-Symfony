@@ -19,6 +19,26 @@ class RapportRepository extends ServiceEntityRepository
         parent::__construct($registry, Rapport::class);
     }
 
+    // Find/search articles by title/content
+    public function findRapportByMotif(string $query)
+    {
+        $qb = $this->createQueryBuilder('r');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('r.motif', ':query'),
+                    ),
+//                    $qb->expr()->isNotNull('r.created_at')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Rapport[] Returns an array of Rapport objects
     //  */

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Medicament{% endblock %}
+
+{% block body %}
+    <h1>Medicament</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medicament.id }}</td>
+            </tr>
+            <tr>
+                <th>NomCommercial</th>
+                <td>{{ medicament.nomCommercial }}</td>
+            </tr>
+            <tr>
+                <th>FamilleId</th>
+                <td>{{ medicament.familleId }}</td>
+            </tr>
+            <tr>
+                <th>Composition</th>
+                <td>{{ medicament.composition }}</td>
+            </tr>
+            <tr>
+                <th>Effets</th>
+                <td>{{ medicament.effets }}</td>
+            </tr>
+            <tr>
+                <th>ContreIndications</th>
+                <td>{{ medicament.contreIndications }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('medicament_index') }}">back to list</a>
+
+    <a href="{{ path('medicament_edit', {'id': medicament.id}) }}">edit</a>
+
+    {{ include('medicament/_delete_form.html.twig') }}
+{% endblock %}
