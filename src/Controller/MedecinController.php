@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Medecin;
 use App\Form\MedecinType;
 use App\Repository\MedecinRepository;
+use App\Repository\RapportRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +15,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class MedecinController extends AbstractController
 {
     #[Route('/', name: 'medecin_index', methods: ['GET'])]
-    public function index(MedecinRepository $medecinRepository): Response
+    public function index(MedecinRepository $medecinRepository,RapportRepository $rapportRepository): Response
     {
         return $this->render('medecin/index.html.twig', [
             'medecins' => $medecinRepository->findAll(),
         ]);
+    }
+
+
+
+    #[Route('/', name: 'medecin_index', methods: ['GET'])]
+    public function findMedecinByNom(MedecinRepository $medecinRepository): Response
+    {
+        $request = Request::createFromGlobals();
+        $query =  $request->query->get('nom');
+        if($query != '' && $query != Null){
+            $medecins = $medecinRepository->findMedecinByNom($query);
+        } else {
+            $medecins = $medecinRepository->findAll();
+        }
+        //$loggedUser =  $this->getUser();
+        return $this->render('medecin/index.html.twig', [
+            'medecins' => $medecins,
+            //'medecins' =>$medecinRepository->findBy(['visiteur'=> $loggedUser]),
+        ]);
+
     }
 
     #[Route('/new', name: 'medecin_new', methods: ['GET','POST'])]
@@ -80,47 +101,5 @@ class MedecinController extends AbstractController
         return $this->redirectToRoute('medecin_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    /**
-     * @Route("/recherche", name="search")
-     */
-    public function recherche(AuthenticationUtils $authenticationUtils, Request $request, MedecinRepository $repo, PaginatorInterface $paginator) {
 
-        $error = $authenticationUtils->getLastAuthenticationError();
-
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        $searchForm = $this->createForm(SearchType::class);
-        $searchForm->handleRequest($request);
-
-        $donnees = $repo->findAll();
-
-        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
-
-            $title = $searchForm->getData()->getNom();
-
-            $donnees = $repo->search($title);
-
-            if ($donnees == null) {
-                $this->addFlash('erreur', 'Aucun article contenant ce mot clé dans le titre n\'a été trouvé, essayez en un autre.');
-            }
-
-        }
-
-        // Paginate the results of the query
-        $articles = $paginator->paginate(
-        // Doctrine Query, not results
-            $donnees,
-            // Define the page parameter
-            $request->query->getInt('page', 1),
-            // Items per page
-            4
-        );
-
-        return $this->render('biblio/search.html.twig',[
-            'last_username' => $lastUsername,
-            'error' => $error,
-            'articles' => $articles,
-            'searchForm' => $searchForm->createView()
-        ]);
-    }
 }

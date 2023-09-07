@@ -19,6 +19,23 @@ class MedicamentRepository extends ServiceEntityRepository
         parent::__construct($registry, Medicament::class);
     }
 
+
+    /**
+     * @return Medicament[] Returns an array of Medecin objects
+     */
+    public function findMedicamentByNom(string $nomCommercial): array
+    {
+        $entityManager =$this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT c
+            FROM App\Entity\Medicament c
+            WHERE c.nomCommercial LIKE :nomCommercial
+            '
+        )->setParameter('nomCommercial','%'.$nomCommercial.'%');
+
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Medicament[] Returns an array of Medicament objects
     //  */

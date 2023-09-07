@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Medicament;
 use App\Form\MedicamentType;
 use App\Repository\MedicamentRepository;
+use ContainerTp2yeGu\PaginatorInterface_82dac15;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,11 +16,35 @@ use Symfony\Component\Routing\Annotation\Route;
 class MedicamentController extends AbstractController
 {
     #[Route('/', name: 'medicament_index', methods: ['GET'])]
-    public function index(MedicamentRepository $medicamentRepository): Response
+    public function medoc(MedicamentRepository $medicamentRepository,Request $request, PaginatorInterface $paginator): Response
     {
+       /*$data = $medicamentRepository->findAll();
+       $medicaments = $paginator->paginate(
+           $data,
+           $request->query->getInt('page', 1),
+           5
+       );*/
         return $this->render('medicament/index.html.twig', [
             'medicaments' => $medicamentRepository->findAll(),
         ]);
+    }
+
+    #[Route('/', name: 'medicament_index', methods: ['GET'])]
+    public function findMedicamentByNom(MedicamentRepository $medicamentRepository): Response
+    {
+        $request = Request::createFromGlobals();
+        $query =  $request->query->get('nomCommercial');
+        if($query != '' && $query != Null){
+            $medicaments = $medicamentRepository->findMedicamentByNom($query);
+        } else {
+            $medicaments = $medicamentRepository->findAll();
+        }
+        //$loggedUser =  $this->getUser();
+        return $this->render('medicament/index.html.twig', [
+            'medicaments' => $medicaments,
+            //'medecins' =>$medecinRepository->findBy(['visiteur'=> $loggedUser]),
+        ]);
+
     }
 
     #[Route('/new', name: 'medicament_new', methods: ['GET','POST'])]

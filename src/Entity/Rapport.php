@@ -6,6 +6,7 @@ use App\Repository\RapportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RapportRepository::class)
@@ -21,11 +22,13 @@ class Rapport
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\LessThanOrEqual("today")
      */
     private $date;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $motif;
 
@@ -35,7 +38,7 @@ class Rapport
     private $bilan;
 
     /**
-     * @ORM\OneToMany(targetEntity=Offrir::class, mappedBy="rapport", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Offrir::class, mappedBy="rapport", orphanRemoval=true, cascade={"persist"})
      */
     private $offrirs;
 
@@ -108,7 +111,7 @@ class Rapport
         return $this->offrirs;
     }
 
-    public function addOffrirs(Offrir $offrir): self
+    public function addOffrir(Offrir $offrir): self
     {
         if (!$this->offrirs->contains($offrir)) {
             $this->offrirs[] = $offrir;
@@ -154,7 +157,12 @@ class Rapport
         return $this;
     }
 
-    public function __toString() {
+    /*public function __toString() {
+        return $this->date->format("Y-m-d H:i:s");
+    }*/
+
+    public function __toString()
+    {
         return $this->date;
     }
 

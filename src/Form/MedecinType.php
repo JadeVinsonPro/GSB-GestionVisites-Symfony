@@ -13,11 +13,11 @@ class MedecinType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('prenom')
             ->add('adresse')
             ->add('tel')
             ->add('specialiteComplementaire')
             ->add('departement')
-            ->add('prenom')
         ;
     }
 

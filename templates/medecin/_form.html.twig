@@ -1,4 +1,16 @@
 {{ form_start(form) }}
+{{ form_row(form.nom) }}
+<br>
+{{ form_row(form.prenom) }}
+<br>
+{{ form_row(form.adresse) }}
+<br>
+{{ form_row(form.tel) }}
+<br>
+{{ form_row(form.specialiteComplementaire) }}
+<br>
+{{ form_row(form.departement) }}
+<br>
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
 {{ form_end(form) }}
