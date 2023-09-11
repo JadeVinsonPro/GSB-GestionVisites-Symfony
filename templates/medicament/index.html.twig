@@ -1,0 +1,127 @@
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-image: url('https://source.unsplash.com/BtbjCFUvBXs/1920x1080');
+        }
+    </style>
+    <title>Liste des médicaments</title>
+</head>
+
+<header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('home') }}">GSB</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('rapport_index') }}">Rapport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('medecin_index') }}">Médecin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('medicament_index') }}">Médicament</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold" >Connecté en tant que </a>
+                    </li>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-check" style="font-size: 32px"></i>
+
+                            <strong>{{ app.user.username }}</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="{{ path('profil') }}">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+</header>
+
+
+
+{% block body %}
+    <h1>Rapport index</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-0 shadow">
+                    <a type="button" class="btn" href="#"></a>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-0 shadow">
+                    <form class="form-inline my-2 my-lg-0" method="get">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Rechercher par le nom commercial" aria-label="Search" name="nomCommercial">
+                        <center>
+                            <button class="btn btn-outline-info btn-lg btn-block" type="submit">Recherche</button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <h1>Liste des médicaments</h1>
+    <h3 STYLE="padding:0 0 0 20px;">Il y a {{ pluralize(medicaments|length, 'résultat', 'résultats')}}.</h3>
+    <table class="table table-success table-striped table-hover">
+        <thead>
+        <tr>
+            <th>Identifiant</th>
+            <th>Nom Commercial</th>
+            <th>Identifiant Famille</th>
+            <th>Composition</th>
+            <th>Effets</th>
+            <th>Contre indications</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for medicament in medicaments %}
+            <tr>
+                <td>{{ medicament.id }}</td>
+                <td>{{ medicament.nomCommercial }}</td>
+                <td>{{ medicament.familleId }}</td>
+                <td>{{ medicament.composition }}</td>
+                <td>{{ medicament.effets }}</td>
+                <td>{{ medicament.contreIndications }}</td>
+                <td>
+                    <a type="button" class="btn btn-outline-info" href="{{ path('medicament_show', {'id': medicament.id}) }}"><i class="bi bi-three-dots">Détails</i></a>
+                    <a type="button" class="btn btn-outline-success" href="{{ path('medicament_edit', {'id': medicament.id}) }}"><i class="bi bi-pencil-square">Modifier</i></a>
+{#                    <a type="button" class="btn btn-outline-danger" href="{{ path('medecin_delete', {'id': medicament.id}) }}"><i class="bi bi-trash">Supprimer</i></a>#}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun médicament n'est répertorié</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   {# <div class="d-flex justify-content-center">
+        {% do medicos.setPageRange(2) %}
+        {{ knp_pagination_render(medocs, 'base/pagination.html.twig') }}
+    </div>#}
+
+{% endblock %}

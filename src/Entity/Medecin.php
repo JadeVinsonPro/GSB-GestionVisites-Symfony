@@ -6,6 +6,7 @@ use App\Repository\MedecinRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MedecinRepository::class)
@@ -31,6 +32,10 @@ class Medecin
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/(0)[0-9]{9}/",
+     *     message="Erreur. Numéro de téléphone invalide"
+     * )
      */
     private $tel;
 
@@ -164,5 +169,8 @@ class Medecin
         $this->prenom = $prenom;
 
         return $this;
+    }
+    public function __toString() {
+        return $this->nom." ".$this->prenom;
     }
 }

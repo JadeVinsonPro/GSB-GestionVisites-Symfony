@@ -1,19 +1,138 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {#<!-- Custom fonts for this template-->
+        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+                rel="stylesheet">
+
+        <!-- Custom styles for this template-->
+        <link href="../assets/startbootstrap-sb-admin-2/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="../js/sb-admin-2.min.js"></script>
+
+
+
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+
+        <!-- Bootstrap core CSS -->
+        <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    #}
+
+    {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+    {% block stylesheets %}
+        {#{{ encore_entry_link_tags('app') }}#}
+    {% endblock %}
+
+    {% block javascripts %}
+        {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+
+
+</head>
+
+{#
+<header>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('home') }}">GSB</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('rapport_index') }}">Rapport</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('medecin_index') }}">Médecins</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Médicaments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-weight: bold" >Connecté en tant que </a>
+                    </li>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                            <strong>{{ app.user.username }}</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="#">Nouveau rapport</a></li>
+                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+</header>
+#}
+
+{#
+
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 1330%">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-4">GSB</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+                Accueil
+            </a>
+        </li>
+        <li>
+            <a href='/rapport' class="nav-link link-dark">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+                Rapports
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                Médecins
+            </a>
+        </li>
+        <li>
+            <a href="#" class="nav-link link-dark">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+                Médicaments
+            </a>
+        </li>
+    </ul>
+    <hr>
+#}
+
+
 </html>
+

@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+
+<form method="post" action="{{ path('rapport_delete', {'id': rapport.id}) }}" onsubmit="return confirm('Etes-vous sûre de vouloir supprimer ce rapport ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rapport.id) }}">
+    <button class="btn btn-outline-danger">Supprimer</button>
+{#    <a type="button" class="btn btn-outline-danger"><i class="bi bi-trash">Supprimer</i></a>#}
+</form>

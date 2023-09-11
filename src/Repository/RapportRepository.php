@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Rapport;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,6 +19,29 @@ class RapportRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Rapport::class);
     }
+
+    /**
+     * @return Rapport[] Returns an array of Rapport objects
+     */
+
+    public function rechercheParDate(DateTime $date): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r
+            FROM App\Entity\Rapport r
+            WHERE r.date = :date
+            '
+        )->setParameter('date', $date);
+
+        return $query->getResult();
+    }
+}
+
+
+
+
 
     // /**
     //  * @return Rapport[] Returns an array of Rapport objects
@@ -47,4 +71,5 @@ class RapportRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+
+

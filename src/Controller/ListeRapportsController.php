@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ListeRapportsController extends AbstractController
 {
     #[Route('/listerapports', name: 'liste_rapports')]
-    #[Route('/listerapports', name: 'liste_rapports_index')]
+    /*#[Route('/listerapports', name: 'liste_rapports_index')]*/
     public function index(RapportRepository $rapportRepository): Response
     {
         $rapports =  ($rapportRepository->findAll());

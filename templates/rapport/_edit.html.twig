@@ -1,0 +1,28 @@
+{#
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+#}
+
+
+
+{{ form_start(form) }}
+{{ form_row(form.date) }}
+<br>
+{{ form_row(form.motif) }}
+<br>
+{{ form_row(form.bilan) }}
+<br>
+
+<button type="button" class="add_item_link btn btn-outline-primary" data-collection-holder-class="offrirs">Ajouter médicament</button>
+<ul class="offrirs" data-index="{{ form.offrirs|length > 0 ? form.offrirs|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.offrirs.vars.prototype)|e('html_attr') }}">
+    <br>
+    {% for offrir in form.offrirs %}
+        <li>{{ form_row(offrir.medicament) }}</li>
+        <li>{{ form_row(offrir.quantite) }}</li>
+    {% endfor %}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    <br><br>
+    {{ form_end(form) }}

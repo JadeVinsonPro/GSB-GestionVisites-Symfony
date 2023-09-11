@@ -19,6 +19,38 @@ class MedecinRepository extends ServiceEntityRepository
         parent::__construct($registry, Medecin::class);
     }
 
+    /**
+     * @return Medecin[] Returns an array of Medecin objects
+     */
+    public function findMedecinByNom(string $nom): array
+    {
+        $entityManager =$this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT n
+            FROM App\Entity\Medecin n
+            WHERE n.nom LIKE :nom
+            '
+        )->setParameter('nom','%'.$nom.'%');
+
+        return $query->getResult();
+    }
+//
+//    /**
+//     * @return Medecin[] Returns an array of Medecin objects
+//     */
+//    public function findMedecinByPrenom(string $prenom): array
+//    {
+//        $entityManager =$this->getEntityManager();
+//        $query = $entityManager->createQuery(
+//            'SELECT p
+//            FROM App\Entity\Medecin p
+//            WHERE p.prenom LIKE :prenom
+//            '
+//        )->setParameter('prenom','%'.$prenom.'%');
+//
+//        return $query->getResult();
+//    }
+
     // /**
     //  * @return Medecin[] Returns an array of Medecin objects
     //  */
